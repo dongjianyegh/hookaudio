@@ -13,7 +13,8 @@ public class HookAudio implements IXposedHookLoadPackage {
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
 
         if (lpparam.packageName.equals("com.iflytek.inputmethod")) {
-            HookInputConnection.hookInputConnection(lpparam);
+//            HookInputConnection.hookInputConnection(lpparam);
+            HookSpeech.hookSpeechResult(lpparam);
         }
     }
 

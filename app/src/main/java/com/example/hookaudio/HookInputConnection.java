@@ -143,19 +143,20 @@ class HookInputConnection {
                     }
                 });
 
-        XposedHelpers.findAndHookMethod("app.fpo",
+        XposedHelpers.findAndHookMethod("com.android.internal.view.InputConnectionWrapper",
                 lpparam.classLoader,
-                "handleMessage",
-                Message.class,
+                "setComposingText",
+                CharSequence.class, int.class,
                 new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         super.beforeHookedMethod(param);
 
                         try {
-                            Log.d("dongjianye", String.format("app.fpo:handleMessage(%d)[Thread:(id:%d, name:%s)]",
-                                    ((Message) param.args[0]).what,
+                            Log.d("dongjianye", String.format("setComposingText:(%s)[Thread:(id:%d, name:%s)]",
+                                    param.args[0],
                                     Thread.currentThread().getId(), Thread.currentThread().getName()));
+                            Log.d("dongjianye", Log.getStackTraceString(new Throwable()));
                         } catch (Throwable ignored) {
                             ignored.printStackTrace();
                         }
@@ -166,5 +167,29 @@ class HookInputConnection {
                         super.afterHookedMethod(param);
                     }
                 });
+
+//        XposedHelpers.findAndHookMethod("app.fpo",
+//                lpparam.classLoader,
+//                "handleMessage",
+//                Message.class,
+//                new XC_MethodHook() {
+//                    @Override
+//                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+//                        super.beforeHookedMethod(param);
+//
+//                        try {
+//                            Log.d("dongjianye", String.format("app.fpo:handleMessage(%d)[Thread:(id:%d, name:%s)]",
+//                                    ((Message) param.args[0]).what,
+//                                    Thread.currentThread().getId(), Thread.currentThread().getName()));
+//                        } catch (Throwable ignored) {
+//                            ignored.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+//                        super.afterHookedMethod(param);
+//                    }
+//                });
     }
 }
