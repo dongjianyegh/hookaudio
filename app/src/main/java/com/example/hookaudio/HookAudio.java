@@ -14,7 +14,11 @@ public class HookAudio implements IXposedHookLoadPackage {
 
         if (lpparam.packageName.equals("com.iflytek.inputmethod")) {
 //            HookInputConnection.hookInputConnection(lpparam);
-            HookSpeech.hookSpeechResult(lpparam);
+//            HookSpeech.hookSpeechResult(lpparam);
+        }
+
+        if (lpparam.packageName.equals("com.baidu.input")) {
+            HookBaiduIptCore.hookSpeechResult(lpparam);
         }
     }
 
